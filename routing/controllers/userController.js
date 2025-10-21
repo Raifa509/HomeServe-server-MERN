@@ -54,11 +54,32 @@ exports.loginController = async (req, res) => {
     }
 }
 
-
-
-
 //googlelogin
-
+exports.googleLoginController=async(req,res)=>{
+    console.log("Inside googlelogin controller");
+    const {username,email,password,profile}=req.body
+    // console.log(username,email,password,profile);
+    try{
+        const existingUser=await users.findOne({email})
+        if(existingUser)
+        {
+            const token=jwt.sign({userMail:existingUser.email},process.env.JWTSECRET)
+            res.status(200).json({user:existingUser,token})
+        }else {
+            const newUser=new users({
+                username,email,password,profile
+            })
+            await newUser.save()
+             const token=jwt.sign({userMail:newUser.email},process.env.JWTSECRET)
+            res.status(200).json({user:newUser,token})
+        }
+    }catch(err){
+        console.log(err);
+        
+    }
+    
+    
+}
 
 
 
