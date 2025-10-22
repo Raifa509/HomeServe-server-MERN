@@ -1,7 +1,9 @@
 const express=require("express")
 const userController=require('./controllers/userController')
-
-
+const serviceController=require('./controllers/serviceController')
+const jwtMiddleware=require("../middlewares/jwtMiddlewares")
+const adminMiddleware=require("../middlewares/adminMiddlewares")
+const multerConfig=require("../middlewares/imageMulterMiddleware")
 const router=express.Router()
 
 //register
@@ -12,5 +14,9 @@ router.post('/login',userController.loginController)
 
 //google login
 router.post('/google-login',userController.googleLoginController)
+
+
+//add service
+router.post('/add-service',jwtMiddleware,multerConfig.fields([{name:'thumbnail',maxCount:1},{name:'detailImage',maxCount:1}]),serviceController.addServiceController)
 
 module.exports=router

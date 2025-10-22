@@ -27,6 +27,14 @@ const serviceSchema = new mongoose.Schema({
         type: String,
         default: ''
     },
+    thumbnail: {
+        type: String,
+        default: '',
+    },
+    detailImage: {
+        type: String,
+        default: '',
+    },
     rating: {
         type: Number,
         default: 0,
@@ -43,14 +51,8 @@ const serviceSchema = new mongoose.Schema({
             price: Number
         }
     ],
-    thumbnail: {
-        type: String,
-        default: '',
-    },
-    detailImage: {
-        type: String, 
-        default: '',
-    },
+
+
 });
 
 const services = mongoose.model('services', serviceSchema);
