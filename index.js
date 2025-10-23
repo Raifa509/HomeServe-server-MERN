@@ -16,8 +16,13 @@ homeserveServer.use(cors())
 //parse json
 homeserveServer.use(express.json())
 
+
 //route
 homeserveServer.use(router)
+
+//for static files
+homeserveServer.use('/uploads',express.static('./uploads'))
+
 const PORT=3000
 
 homeserveServer.listen(PORT,()=>{
