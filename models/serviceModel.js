@@ -16,7 +16,7 @@ const serviceSchema = new mongoose.Schema({
     },
     category: {
         type: String,
-        enum: ['Cleaning', 'Gardening', 'Repairs', 'Painting', 'Installation', 'Moving', 'Emergency'],
+        enum: ['Cleaning', 'Outdoor & Gardening', 'Repairs', 'Painting', 'Installation', 'Moving', 'Emergency'],
         required: true,
     },
     price: {
