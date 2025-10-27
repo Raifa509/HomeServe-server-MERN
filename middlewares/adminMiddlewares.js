@@ -1,8 +1,24 @@
-const jwt=require('jsonwebtoken')
+const jwt = require('jsonwebtoken')
 
-const adminMiddleware=(req,res,next)=>{
+const adminMiddleware = (req, res, next) => {
     console.log("Inside adminMiddleware");
-    console.log(req.payload);
-    
+    const token = req.headers.authorization.split(" ")[1]
+    console.log(token);
+    try {
+        const jwtResponse = jwt.verify(token, process.env.JWTSECRET)
+        // console.log(jwtResponse);
+        req.payload = jwtResponse.userMail
+        req.role = jwtResponse.role
+        if (jwtResponse.role == "admin") {
+            next()
+        } else {
+            res.status(401).json("Unauthorised User!!!")
+        }
+
+    } catch (err) {
+        res.status(401).json("Invalid Token", err)
+    }
+
+
 }
-module.exports=adminMiddleware
+module.exports = adminMiddleware

@@ -51,6 +51,14 @@ const serviceSchema = new mongoose.Schema({
             price: Number
         }
     ],
+    isEmergency:{
+        type:Boolean,
+        default:false,
+    },
+    subCategory:{
+        type:String,
+        default:""
+    }
 
 
 });

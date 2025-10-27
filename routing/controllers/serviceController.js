@@ -4,7 +4,7 @@ exports.addServiceController = async (req, res) => {
     console.log("inside addServiceController");
 
     try {
-        const { name, description, about, category, price, duration, rating, whatsIncluded, pricingTiers } = req.body;
+        const { name, description, about, category, price, duration, rating, whatsIncluded, pricingTiers, isEmergency, subCategory } = req.body;
 
         const thumbnail = req.files?.thumbnail?.[0]?.filename || '';
         const detailImage = req.files?.detailImage?.[0]?.filename || '';
@@ -30,7 +30,9 @@ exports.addServiceController = async (req, res) => {
             detailImage,
             rating: Number(rating) || 0,
             whatsIncluded: whatsIncludedArray,
-            pricingTiers: pricingTiersArray
+            pricingTiers: pricingTiersArray,
+            isEmergency: isEmergency === "true" || isEmergency === true,
+            subCategory: subCategory || "",
         });
 
         await newService.save();
@@ -41,3 +43,35 @@ exports.addServiceController = async (req, res) => {
         res.status(500).json({ error: err.message });
     }
 };
+
+//view all services
+
+exports.viewAllAdminServices = async (req, res) => {
+    console.log("Inside viewAllServices");
+    const searchKey = req.query.search
+    const query = {
+        name: { $regex: searchKey, $options: 'i' }
+    }
+    try {
+        const allServices = await services.find(query)
+        res.status(200).json(allServices)
+    } catch (err) {
+        res.status(500).json(err)
+    }
+}
+
+//delete service
+exports.deleteAdminService = async (req, res) => {
+    console.log("Inside deleteAdminService");
+    const { id } = req.params
+    console.log(id);
+    try {
+        await services.findByIdAndDelete({ _id: id })
+        // res.status(200).json("Deleted Successfully!!!")
+
+    } catch (err) {
+        res.status(500).json(err)
+    }
+
+
+}
