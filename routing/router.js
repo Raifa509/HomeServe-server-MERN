@@ -29,5 +29,9 @@ router.get('/admin/services',adminMiddleware,serviceController.viewAllAdminServi
 router.delete('/admin/service/:id/delete',adminMiddleware,serviceController.deleteAdminService)
 
 
+//update admin profile
+router.put('/admin-profile/edit',adminMiddleware,multerConfig.single("profile"),userController.updateAdminProfileController)
+
+
 
 module.exports=router

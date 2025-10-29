@@ -83,9 +83,27 @@ exports.googleLoginController=async(req,res)=>{
 }
 
 
-
-
 //profile
+
+
+
+// -------------------------admin--------------------------------
+
+//admin profile update
+exports.updateAdminProfileController=async(req,res)=>{
+    console.log("Inside updateAdminProfileController");
+    const {username,password,bio,role}=req.body
+    const email=req.payload
+    const uploadedProfile=req.file?req.file.filename:req.body.profile
+    try{
+        const uploadedAdminProfile=await users.findOneAndUpdate({email},{username,email,password,profile:uploadedProfile,bio,role},{new:true})
+        await uploadedAdminProfile.save()
+        res.status(200).json(uploadedAdminProfile)
+    }catch(err){
+        res.status(500).json(err)
+    }
+    
+}
 
 
 
