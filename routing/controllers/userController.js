@@ -105,7 +105,19 @@ exports.updateAdminProfileController=async(req,res)=>{
     
 }
 
-
+//get customer details
+exports.getAllUsersAdminController=async(req,res)=>{
+    console.log("Inside getAllUsersAdminController");
+    const email=req.payload
+    try{
+        const allUsers=await users.find({email:{$ne:email}})
+        res.status(200).json(allUsers)
+    }catch(err)
+    {
+        res.status(500).json(err)
+    }
+    
+}
 
 
 

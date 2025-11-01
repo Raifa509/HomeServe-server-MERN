@@ -64,7 +64,6 @@ exports.viewAllAdminServices = async (req, res) => {
 exports.deleteAdminService = async (req, res) => {
     console.log("Inside deleteAdminService");
     const { id } = req.params
-    console.log(id);
     try {
         await services.findByIdAndDelete({ _id: id })
         // res.status(200).json("Deleted Successfully!!!")
