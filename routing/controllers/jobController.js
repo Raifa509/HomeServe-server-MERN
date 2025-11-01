@@ -29,7 +29,7 @@ exports.addJobController=async(req,res)=>{
     }
 }
 
-//get all jobs
+//get all jobs-admin
 exports.getAllJobController=async(req,res)=>{
     console.log("Inside getAllJobController");
     const searchKey=req.query.search
@@ -74,3 +74,15 @@ exports.closeJobController=async(req,res)=>{
     
 }
 
+//get all jobs-user
+exports.getAllJobUserController=async(req,res)=>{
+    console.log("Inside getAllJobUserController");
+    try{
+        const allUserJobs=await jobs.find({status:"Active"})
+        res.status(200).json(allUserJobs)
+
+    }catch(err)
+    {
+        res.status(500).json(err)
+    }
+}

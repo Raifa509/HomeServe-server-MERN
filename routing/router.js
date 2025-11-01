@@ -7,6 +7,9 @@ const adminMiddleware=require("../middlewares/adminMiddlewares")
 const multerConfig=require("../middlewares/imageMulterMiddleware")
 const router=express.Router()
 
+
+// --------------------------guest user----------------------
+
 //register
 router.post('/register',userController.registerController)
 
@@ -16,7 +19,8 @@ router.post('/login',userController.loginController)
 //google login
 router.post('/google-login',userController.googleLoginController)
 
-
+//get jobs
+router.get("/all-jobs/openings",jobController.getAllJobUserController)
 
 
 //------------------------------admin----------------------
