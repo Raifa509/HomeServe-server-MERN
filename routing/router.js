@@ -2,8 +2,10 @@ const express=require("express")
 const userController=require('./controllers/userController')
 const serviceController=require('./controllers/serviceController')
 const jobController=require('./controllers/jobController')
+const applicationController=require('./controllers/applicationController')
 const jwtMiddleware=require("../middlewares/jwtMiddlewares")
 const adminMiddleware=require("../middlewares/adminMiddlewares")
+const pdfMulterConfig=require("../middlewares/pdfMutterMiddleware")
 const multerConfig=require("../middlewares/imageMulterMiddleware")
 const router=express.Router()
 
@@ -53,5 +55,33 @@ router.delete('/remove/job/:id',adminMiddleware,jobController.removeJobControlle
 
 //close-job
 router.put('/close-job/:id',adminMiddleware,jobController.closeJobController)
+
+//view job applications
+router.get('/job-application/view',adminMiddleware,applicationController.getApplicationController)
+
+//job status update
+router.put('/application/status/:id',adminMiddleware,applicationController.updateApplicationStatusController)
+
+
+//---------------------------------authorized user-------------------------------------------
+
+
+//apply job
+router.post('/apply-job',jwtMiddleware,pdfMulterConfig.single("resume"),applicationController.addApplicationController)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 module.exports=router
