@@ -22,6 +22,7 @@ homeserveServer.use(router)
 
 //for static files
 homeserveServer.use('/uploads',express.static('./uploads'))
+homeserveServer.use('/pdf',express.static('./pdf'))
 
 const PORT=3000
 

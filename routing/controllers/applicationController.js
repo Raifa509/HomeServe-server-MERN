@@ -37,7 +37,7 @@ exports.getApplicationController = async (req, res) => {
 
 //change status 
 exports.updateApplicationStatusController = async (req, res) => {
-    console.log("Inside updateApplicationStatusControlle");
+    console.log("Inside updateApplicationStatusController");
     console.log("Body received:", req.body);
     const { id } = req.params
     const { status } = req.body
