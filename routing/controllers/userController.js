@@ -41,7 +41,7 @@ exports.loginController = async (req, res) => {
 
         if (existingUser) {
             if (existingUser.password == password) {
-                const token = jwt.sign({ userMail: existingUser.email ,role:existingUser.role}, process.env.JWTSECRET)        
+                const token = jwt.sign({ userMail: existingUser.email, role: existingUser.role }, process.env.JWTSECRET)
                 res.status(200).json({ user: existingUser, token })
             } else {
                 res.status(401).json("Invalid Credential")
@@ -56,30 +56,29 @@ exports.loginController = async (req, res) => {
 }
 
 //googlelogin
-exports.googleLoginController=async(req,res)=>{
+exports.googleLoginController = async (req, res) => {
     console.log("Inside googlelogin controller");
-    const {username,email,password,profile}=req.body
+    const { username, email, password, profile } = req.body
     // console.log(username,email,password,profile);
-    try{
-        const existingUser=await users.findOne({email})
-        if(existingUser)
-        {
-            const token=jwt.sign({userMail:existingUser.email,role:existingUser.role},process.env.JWTSECRET)
-            res.status(200).json({user:existingUser,token})
-        }else {
-            const newUser=new users({
-                username,email,password,profile
+    try {
+        const existingUser = await users.findOne({ email })
+        if (existingUser) {
+            const token = jwt.sign({ userMail: existingUser.email, role: existingUser.role }, process.env.JWTSECRET)
+            res.status(200).json({ user: existingUser, token })
+        } else {
+            const newUser = new users({
+                username, email, password, profile
             })
             await newUser.save()
-             const token=jwt.sign({userMail:newUser.email},process.env.JWTSECRET)
-            res.status(200).json({user:newUser,token})
+            const token = jwt.sign({ userMail: newUser.email }, process.env.JWTSECRET)
+            res.status(200).json({ user: newUser, token })
         }
-    }catch(err){
+    } catch (err) {
         console.log(err);
-        
+
     }
-    
-    
+
+
 }
 
 
@@ -90,34 +89,42 @@ exports.googleLoginController=async(req,res)=>{
 // -------------------------admin--------------------------------
 
 //admin profile update
-exports.updateAdminProfileController=async(req,res)=>{
+exports.updateAdminProfileController = async (req, res) => {
     console.log("Inside updateAdminProfileController");
-    const {username,password,bio,role}=req.body
-    const email=req.payload
-    const uploadedProfile=req.file?req.file.filename:req.body.profile
-    try{
-        const uploadedAdminProfile=await users.findOneAndUpdate({email},{username,email,password,profile:uploadedProfile,bio,role},{new:true})
+    const { username, password, bio, role } = req.body
+    const email = req.payload
+    const uploadedProfile = req.file ? req.file.filename : req.body.profile
+    try {
+        const uploadedAdminProfile = await users.findOneAndUpdate({ email }, { username, email, password, profile: uploadedProfile, bio, role }, { new: true })
         await uploadedAdminProfile.save()
         res.status(200).json(uploadedAdminProfile)
-    }catch(err){
+    } catch (err) {
         res.status(500).json(err)
     }
-    
+
 }
 
 //get customer details
-exports.getAllUsersAdminController=async(req,res)=>{
+exports.getAllUsersAdminController = async (req, res) => {
     console.log("Inside getAllUsersAdminController");
-    const email=req.payload
-    try{
-        const allUsers=await users.find({email:{$ne:email}})
+    const email = req.payload
+    const searchKey = req.query.search
+    const query = {
+        email: { $ne: email },
+        $or: [
+            { username: { $regex: searchKey, $options: 'i' } },
+            { email: { $regex: searchKey, $options: 'i' } }
+        ]
+    }
+    try {
+        const allUsers = await users.find(query)
         res.status(200).json(allUsers)
-    }catch(err)
-    {
+    } catch (err) {
         res.status(500).json(err)
     }
-    
+
 }
+
 
 
 

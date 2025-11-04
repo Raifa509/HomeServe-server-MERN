@@ -1,5 +1,7 @@
 const services = require('../../models/serviceModel');
 
+//add services
+
 exports.addServiceController = async (req, res) => {
     console.log("inside addServiceController");
 
