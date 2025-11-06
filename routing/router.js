@@ -3,9 +3,11 @@ const userController=require('./controllers/userController')
 const serviceController=require('./controllers/serviceController')
 const jobController=require('./controllers/jobController')
 const applicationController=require('./controllers/applicationController')
+const providerController=require('./controllers/providerController')
 const jwtMiddleware=require("../middlewares/jwtMiddlewares")
 const adminMiddleware=require("../middlewares/adminMiddlewares")
 const pdfMulterConfig=require("../middlewares/pdfMutterMiddleware")
+const providerMulterConfig=require('../middlewares/providerImageMulterMiddleware')
 const multerConfig=require("../middlewares/imageMulterMiddleware")
 const router=express.Router()
 
@@ -25,7 +27,7 @@ router.post('/google-login',userController.googleLoginController)
 router.get("/all-jobs/openings",jobController.getAllJobUserController)
 
 
-//------------------------------admin----------------------
+//------------------------------admin-------------------------------------
 
 //add service
 router.post('/add-service',adminMiddleware,multerConfig.fields([{name:'thumbnail',maxCount:1},{name:'detailImage',maxCount:1}]),serviceController.addServiceController)
@@ -36,7 +38,6 @@ router.get('/admin/services',adminMiddleware,serviceController.viewAllAdminServi
 
 //delete service in admin
 router.delete('/admin/service/:id/delete',adminMiddleware,serviceController.deleteAdminService)
-
 
 //update admin profile
 router.put('/admin-profile/edit',adminMiddleware,multerConfig.single("profile"),userController.updateAdminProfileController)
@@ -62,6 +63,20 @@ router.get('/job-application/view',adminMiddleware,applicationController.getAppl
 //job status update
 router.put('/application/status/:id',adminMiddleware,applicationController.updateApplicationStatusController)
 
+
+//-->service providers-admin
+
+//add - service provider
+router.post('/add-provider',adminMiddleware,providerMulterConfig.single("profile"),providerController.addProviderController)
+
+//get -service provider
+router.get('/all-provider',adminMiddleware,providerController.getProviderController)
+
+//remove-service provider
+router.delete('/remove/provider/:id',adminMiddleware,providerController.removeProviderController)
+
+//edit-service provider
+router.put('/update/provider/:id',adminMiddleware,providerController.updateProviderController)
 
 //---------------------------------authorized user-------------------------------------------
 
