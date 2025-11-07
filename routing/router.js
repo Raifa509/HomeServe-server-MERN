@@ -76,7 +76,7 @@ router.get('/all-provider',adminMiddleware,providerController.getProviderControl
 router.delete('/remove/provider/:id',adminMiddleware,providerController.removeProviderController)
 
 //edit-service provider
-router.put('/update/provider/:id',adminMiddleware,providerController.updateProviderController)
+router.put('/update/provider/:id',adminMiddleware,providerMulterConfig.single("profile"),providerController.updateProviderController)
 
 //---------------------------------authorized user-------------------------------------------
 
