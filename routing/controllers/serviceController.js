@@ -76,3 +76,19 @@ exports.deleteAdminService = async (req, res) => {
 
 
 }
+
+//update service
+exports.updateAdminServiceController = async (req, res) => {
+    console.log("Inside updateAdminServiceController");
+    const { id } = req.params
+    const { name, category, price, duration, subCategory } = req.body
+    try {
+        const updatedService = await services.findByIdAndUpdate({ _id: id }, {
+            name, category, price, duration, subCategory
+        }, { new: true })
+        res.status(200).json(updatedService)
+    } catch (err) {
+        res.status(500).json(err)
+    }
+
+}

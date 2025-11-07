@@ -29,9 +29,11 @@ router.get("/all-jobs/openings",jobController.getAllJobUserController)
 
 //------------------------------admin-------------------------------------
 
+
+//-->service -admin
+
 //add service
 router.post('/add-service',adminMiddleware,multerConfig.fields([{name:'thumbnail',maxCount:1},{name:'detailImage',maxCount:1}]),serviceController.addServiceController)
-
 
 //view service in admin
 router.get('/admin/services',adminMiddleware,serviceController.viewAllAdminServices)
@@ -39,11 +41,23 @@ router.get('/admin/services',adminMiddleware,serviceController.viewAllAdminServi
 //delete service in admin
 router.delete('/admin/service/:id/delete',adminMiddleware,serviceController.deleteAdminService)
 
+//update service in admin
+router.put('/update-service/:id',adminMiddleware,serviceController.updateAdminServiceController)
+
+
+
+//-->settings-admin
+
 //update admin profile
 router.put('/admin-profile/edit',adminMiddleware,multerConfig.single("profile"),userController.updateAdminProfileController)
 
+
+//-->customers-admin
+
 //get all users
 router.get('/admin/all-users',adminMiddleware,userController.getAllUsersAdminController)
+
+//-->careers-admin
 
 //add job
 router.post('/add-job',adminMiddleware,jobController.addJobController)
@@ -77,6 +91,10 @@ router.delete('/remove/provider/:id',adminMiddleware,providerController.removePr
 
 //edit-service provider
 router.put('/update/provider/:id',adminMiddleware,providerMulterConfig.single("profile"),providerController.updateProviderController)
+
+
+
+
 
 //---------------------------------authorized user-------------------------------------------
 
