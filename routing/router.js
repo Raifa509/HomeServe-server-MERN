@@ -3,6 +3,7 @@ const userController=require('./controllers/userController')
 const serviceController=require('./controllers/serviceController')
 const jobController=require('./controllers/jobController')
 const applicationController=require('./controllers/applicationController')
+const bookingController=require('./controllers/bookingController')
 const providerController=require('./controllers/providerController')
 const jwtMiddleware=require("../middlewares/jwtMiddlewares")
 const adminMiddleware=require("../middlewares/adminMiddlewares")
@@ -108,7 +109,11 @@ router.post('/apply-job',jwtMiddleware,pdfMulterConfig.single("resume"),applicat
 //get service details
 router.get('/service/:id/details',jwtMiddleware,userController.getServiceDetailsController)
 
+//get services for booking
+router.get('/services',bookingController.getAllServiceCategoryController)
 
+//submit bookings
+router.post('/make-bookings',jwtMiddleware,bookingController.addBookingsController)
 
 
 
