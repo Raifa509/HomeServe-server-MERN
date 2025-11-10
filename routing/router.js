@@ -81,7 +81,6 @@ router.get('/job-application/view',adminMiddleware,applicationController.getAppl
 //job status update
 router.put('/application/status/:id',adminMiddleware,applicationController.updateApplicationStatusController)
 
-
 //-->service providers-admin
 
 //add - service provider
@@ -97,7 +96,16 @@ router.delete('/remove/provider/:id',adminMiddleware,providerController.removePr
 router.put('/update/provider/:id',adminMiddleware,providerMulterConfig.single("profile"),providerController.updateProviderController)
 
 
+//-->bookings -admin
 
+//get all bookings
+router.get('/all-bookings',adminMiddleware,bookingController.getBookingsController)
+
+//get provider for booking
+router.get('/booking-provider',adminMiddleware,bookingController.getBookingProvidersController)
+
+//assign provider for booking
+router.put('/:id/assign-provider',adminMiddleware,bookingController.assignProviderController)
 
 
 //---------------------------------authorized user-------------------------------------------

@@ -35,6 +35,12 @@ const bookingSchema = new mongoose.Schema({
     status: {
         type: String,
         default: "Pending"
+    },
+    assignedProvider:{
+        type:String,
+    },
+    providerRole:{
+        type:String
     }
 })
 const bookings = mongoose.model("bookings", bookingSchema)
