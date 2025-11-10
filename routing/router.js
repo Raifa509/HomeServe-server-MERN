@@ -102,6 +102,11 @@ router.put('/update/provider/:id',adminMiddleware,providerMulterConfig.single("p
 //apply job
 router.post('/apply-job',jwtMiddleware,pdfMulterConfig.single("resume"),applicationController.addApplicationController)
 
+//get service in user
+router.get('/all-services',jwtMiddleware,userController.getAllServicesController)
+
+//get service details
+router.get('/service/:id/details',jwtMiddleware,userController.getServiceDetailsController)
 
 
 

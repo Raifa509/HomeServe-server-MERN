@@ -1,3 +1,4 @@
+const services = require('../../models/serviceModel');
 const users = require('../../models/userModel')
 
 const jwt = require('jsonwebtoken')
@@ -126,6 +127,38 @@ exports.getAllUsersAdminController = async (req, res) => {
 }
 
 
+//----------------------users-----------------------------------
+
+//user -get services
+exports.getAllServicesController=async(req,res)=>{
+    console.log("Inside getAllServicesController");
+    const searchKey=req.query.search
+    
+      const query = {
+        name: { $regex: searchKey, $options: 'i' }
+    }
+    try{
+        const allServices=await services.find(query)
+        res.status(200).json(allServices)
+    }catch(err)
+    {
+        res.status(500).json(err)
+    }
+    
+}
+
+//user-get service details
+exports.getServiceDetailsController=async(req,res)=>{
+    console.log("Inside getServiceDetailsController");
+    const {id}=req.params
+    try{
+        const serviceDetails=await services.find({_id:id})
+        res.status(200).json(serviceDetails)
+    }catch(err)
+    {
+        res.status(500).json(err)
+    }
+}
 
 
 
