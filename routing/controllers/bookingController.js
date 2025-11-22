@@ -63,17 +63,46 @@ exports.getBookingProvidersController = async (req, res) => {
 }
 
 //assign provider to booking
-exports.assignProviderController=async(req,res)=>{
+exports.assignProviderController = async (req, res) => {
     console.log("Inside assignProviderController");
-    const {id}=req.params
-    const {providerName}=req.body
-    try{
-        const provider=await providers.findOne({name:providerName})
-        const assign=await bookings.findByIdAndUpdate({_id:id},{assignedProvider:provider.name,providerRole:provider.role},{new:true})
+    const { id } = req.params
+    const { providerName } = req.body
+    try {
+        const provider = await providers.findOne({ name: providerName })
+        const assign = await bookings.findByIdAndUpdate({ _id: id }, { assignedProvider: provider.name, providerRole: provider.role }, { new: true })
         res.status(200).json(assign)
-    }catch(err)
-    {
+    } catch (err) {
         res.status(500).json(err)
     }
-    
+
 }
+
+//remove bookings
+exports.removeBookingController = async (req, res) => {
+    console.log("Inside removeBookingController");
+    const { id } = req.params
+    try {
+        const deleteBooking = await bookings.findByIdAndDelete({ _id: id })
+        res.status(200).json(deleteBooking)
+    } catch (err) {
+        res.status(500).json(err)
+    }
+}
+
+// update booking status
+exports.updateBookingStatus = async (req, res) => {
+    try {
+        const { id } = req.params;
+        const { status } = req.body;
+
+        const updated = await bookings.findByIdAndUpdate(
+            id,
+            { status: status },
+            { new: true }
+        )
+        res.status(200).json(updated);
+
+    } catch (err) {
+        res.status(500).json(err);
+    }
+};

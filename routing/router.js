@@ -107,6 +107,12 @@ router.get('/booking-provider',adminMiddleware,bookingController.getBookingProvi
 //assign provider for booking
 router.put('/:id/assign-provider',adminMiddleware,bookingController.assignProviderController)
 
+//delete-booking
+router.delete('/remove/booking/:id',adminMiddleware,bookingController.removeBookingController)
+
+//booking status update
+router.put('/booking/status/:id',adminMiddleware,bookingController.updateBookingStatus)
+
 
 //---------------------------------authorized user-------------------------------------------
 
