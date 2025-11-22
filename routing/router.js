@@ -5,6 +5,7 @@ const jobController=require('./controllers/jobController')
 const applicationController=require('./controllers/applicationController')
 const bookingController=require('./controllers/bookingController')
 const providerController=require('./controllers/providerController')
+const dashboardControlller=require('./controllers/dashboardController')
 const jwtMiddleware=require("../middlewares/jwtMiddlewares")
 const adminMiddleware=require("../middlewares/adminMiddlewares")
 const pdfMulterConfig=require("../middlewares/pdfMutterMiddleware")
@@ -33,6 +34,9 @@ router.get('/all-services',userController.getAllServicesController)
 
 //------------------------------admin-------------------------------------
 
+//--> Dashboard
+router.get('/dashboard',adminMiddleware,dashboardControlller.getDashboardStatsController)
+router.get('/bookings-per-service', adminMiddleware, dashboardControlller.getBookingsPerServiceController);
 
 //-->service -admin
 
