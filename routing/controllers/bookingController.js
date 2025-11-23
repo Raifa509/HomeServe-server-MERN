@@ -106,3 +106,19 @@ exports.updateBookingStatus = async (req, res) => {
         res.status(500).json(err);
     }
 };
+
+
+//get all bookings for profile
+exports.getAllBookingsProfileController = async (req, res) => {
+    console.log("Inside getAllBookingsProfileCOntroller");
+    const { name } = req.params
+    try {
+        const profileBookings = await bookings.find({
+            customerName: { $regex: name, $options: "i" }
+        });
+        res.status(200).json(profileBookings)
+    } catch (err) {
+        res.status(500).json(err)
+    }
+
+}

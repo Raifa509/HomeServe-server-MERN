@@ -133,6 +133,8 @@ router.get('/services',bookingController.getAllServiceCategoryController)
 //submit bookings
 router.post('/make-bookings',jwtMiddleware,bookingController.addBookingsController)
 
+//get bookings profile
+router.get('/bookings/:name/details',bookingController.getAllBookingsProfileController)
 
 
 
