@@ -6,6 +6,7 @@ const applicationController=require('./controllers/applicationController')
 const bookingController=require('./controllers/bookingController')
 const providerController=require('./controllers/providerController')
 const dashboardControlller=require('./controllers/dashboardController')
+const aiController=require('./controllers/aiControllers')
 const jwtMiddleware=require("../middlewares/jwtMiddlewares")
 const adminMiddleware=require("../middlewares/adminMiddlewares")
 const pdfMulterConfig=require("../middlewares/pdfMutterMiddleware")
@@ -138,7 +139,8 @@ router.get('/bookings/:name/details',bookingController.getAllBookingsProfileCont
 
 
 
-
+// ------------------------------------AI------------------------------------
+router.post("/ask-ai",aiController.handleAIQuery)
 
 
 

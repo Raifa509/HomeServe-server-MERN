@@ -1,0 +1,47 @@
+{
+  "companyName": "HomeServe",
+
+  "about": "HomeServe provides reliable home services including cleaning, repairs, maintenance, and emergency assistance across supported areas.",
+
+  "contact": {
+    "phone": "+971 50 123 4567",
+    "email": "support@homeserve.com",
+    "bookingHours": "9 AM to 9 PM, every day",
+    "emergencySupport": "Emergency services available 24/7"
+  },
+
+  "locations": [
+    "Dubai",
+    "Sharjah",
+    "Abu Dhabi"
+  ],
+
+  "bookingOptions": {
+    "website": "You can book directly through our website using the service booking form.",
+    "phone": "You can call us directly for quick booking or assistance.",
+    "whatsapp": "WhatsApp booking is available through our registered number.",
+    "emergency": "Emergency services will reach you within 24 hours."
+  },
+
+  "serviceGuidelines": {
+    "howBookingWorks": [
+      "Select the service you need.",
+      "Choose your location.",
+      "Pick a suitable date and time from the booking form.",
+      "Confirm your request.",
+      "You will receive a confirmation message shortly."
+    ],
+    "paymentOptions": [
+      "Cash on service"
+    ]
+  },
+
+  "generalReplies": {
+    "unavailableInfo": [
+      "I'm sorry, I don’t have that specific information right now. Please feel free to contact our support team for more details.",
+      "I’m not completely sure about that. It’s best to contact our team for the most accurate and up-to-date details."
+    ],
+    "greeting": "Hello! How can I assist you today?",
+    "closing": "If there's anything else you need, I'm here to help."
+  }
+}
